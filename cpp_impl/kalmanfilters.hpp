@@ -17,3 +17,19 @@ struct kf_1dim_tl {
     void measurement_update(double pos, double sigma_pos);
     void skip_measurement_update();
 };
+
+struct kf_1dim_rot {
+    double phi, phi_pred;
+    double p, p_pred;
+
+    kf_1dim_rot() = delete;
+    kf_1dim_rot(double phi_init, double p_init);
+
+    void time_update(double dt, double vel_phi, double sigma_vel_phi);
+    void measurement_update(double phi_measurement, double sigma_phi);
+    void skip_measurement_update();
+};
+
+struct kf_3dim_tl {
+
+};
