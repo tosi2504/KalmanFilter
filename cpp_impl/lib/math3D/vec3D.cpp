@@ -99,6 +99,10 @@ vec3D vec3D::gen_nphi(double phi, double theta) {
 vec3D vec3D::gen_ntheta(double phi, double theta) {
     return vec3D(std::cos(theta)*std::cos(phi), std::cos(theta)*std::sin(phi), -std::sin(theta));
 }
-vec3D vec3D::scale(double a) {
-    return vec3D(x*a, y*a, z*a);
+vec3D vec3D::scale(double a, const vec3D & v1) {
+    return vec3D(v1.x*a, v1.y*a, v1.z*a);
+}
+
+vec3D operator*(double a, const vec3D & vec) {
+    return vec3D(vec.x*a, vec.y*a, vec.z*a);
 }

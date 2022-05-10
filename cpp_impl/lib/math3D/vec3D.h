@@ -23,11 +23,8 @@ struct vec3D {
    static vec3D gen_nr(double phi, double theta);
    static vec3D gen_nphi(double phi, double theta);
    static vec3D gen_ntheta(double phi, double theta);
-   static vec3D scale(double a);
+   static vec3D scale(double a, const vec3D & v1);
 };
 
-vec3D operator*(double a, const vec3D & vec) {
-    return vec3D(vec.x*a, vec.y*a, vec.z*a);
-}
-
+vec3D operator*(double a, const vec3D & vec);
 #endif

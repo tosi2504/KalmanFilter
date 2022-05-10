@@ -81,6 +81,14 @@ mat3D mat3D::generateRot(const double phi, const vec3D & n_) {
 }
 
 mat3D mat3D::generate_by_columns(const vec3D & col1, const vec3D & col2, const vec3D & col3) {
-    result = mat3D(col1, col2, col3);
+    mat3D result = mat3D(col1, col2, col3);
     return result.transpose();
+}
+
+mat3D operator*(const mat3D & mat1, const mat3D & mat2) {
+    return mat3D::matmul(mat1, mat2);
+}
+
+vec3D operator*(const mat3D & mat, const vec3D & vec) {
+    return mat3D::matmul(mat, vec);
 }

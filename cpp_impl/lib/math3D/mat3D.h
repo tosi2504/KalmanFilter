@@ -21,13 +21,7 @@ struct mat3D {
    static mat3D generate_by_columns(const vec3D & col1, const vec3D & col2, const vec3D & col3);
 };
 
-mat3D operator*(const mat3D & mat1, const mat3D & mat2) {
-    return mat3D::matmul(mat1, mat2);
-}
-
-vec3D operator*(const mat3D & mat, const vec3D & vec) {
-    return mat3D::matmul(mat, vec);
-}
-
+mat3D operator*(const mat3D & mat1, const mat3D & mat2);
+vec3D operator*(const mat3D & mat, const vec3D & vec);
 
 #endif
