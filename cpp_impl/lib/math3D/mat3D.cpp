@@ -63,10 +63,10 @@ void mat3D::print() {
    }
 }
 
-mat3D mat3D::generateRot(const float phi, const vec3D & n_) {
+mat3D mat3D::generateRot(const double phi, const vec3D & n_) {
    vec3D n = vec3D::normalise(n_);
-   float cos = std::cos(phi);
-   float sin = std::sin(phi);
+   double cos = std::cos(phi);
+   double sin = std::sin(phi);
    mat3D res;
    res.data[0][0] = cos + n.x*n.x * (1 - cos);
    res.data[0][1] = n.x*n.y * (1 - cos) - n.z*sin;
@@ -78,4 +78,9 @@ mat3D mat3D::generateRot(const float phi, const vec3D & n_) {
    res.data[2][1] = n.z*n.y * (1 - cos) + n.x*sin;
    res.data[2][2] = cos + n.z*n.z * (1 - cos);
    return res;
+}
+
+mat3D mat3D::generate_by_columns(const vec3D & col1, const vec3D & col2, const vec3D & col3) {
+    result = mat3D(col1, col2, col3);
+    return result.transpose();
 }

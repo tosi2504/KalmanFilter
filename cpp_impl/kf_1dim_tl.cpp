@@ -1,5 +1,4 @@
 #include "kalmanfilters.hpp"
-#include <cmath>
 
 kf_1dim_tl::kf_1dim_tl(double x_init, double v_init, double sigma_x, double sigma_v) {
     X[0] = x_init;
