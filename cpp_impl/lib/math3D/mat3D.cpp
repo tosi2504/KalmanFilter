@@ -1,7 +1,5 @@
-#include "mat3D.h"
+#include "math3D.hpp"
 
-#include <iostream>
-#include <cmath>
 
 mat3D::mat3D() {
    data[0] = vec3D(0,0,0);
@@ -31,7 +29,7 @@ vec3D mat3D::matmul(const mat3D & mat, const vec3D & vec) {
    return res;
 }
 
-mat3D mat3D::transpose() {
+mat3D mat3D::transpose() const {
    mat3D res;
    for (unsigned int i = 0; i < 3; i++) {
       for (unsigned int j = 0; j < 3; j++) {
@@ -54,7 +52,32 @@ mat3D mat3D::matmul(const mat3D & mat1, const mat3D & mat2) {
    return res;
 }
 
-void mat3D::print() {
+double mat3D::det() const {
+    double pos = data[0][0]*data[1][1]*data[2][2] + data[0][1]*data[1][2]*data[2][0] + data[0][2]*data[1][0]*data[2][1];
+    double neg = data[2][0]*data[1][1]*data[0][2] + data[2][1]*data[1][2]*data[0][0] + data[2][2]*data[1][0]*data[0][1];
+    return pos - neg;
+}
+
+
+mat3D mat3D::inv() const {
+    mat3D res;
+    res[0][0] = data[1][1]*data[2][2] - data[1][2]*data[2][1];
+    res[0][1] = data[0][2]*data[2][1] - data[0][1]*data[2][2];
+    res[0][2] = data[0][1]*data[1][2] - data[0][2]*data[1][1];
+
+    res[1][0] = data[1][2]*data[2][0] - data[1][0]*data[2][2];
+    res[1][1] = data[0][0]*data[2][2] - data[0][2]*data[2][0];
+    res[1][2] = data[0][2]*data[1][0] - data[0][0]*data[1][2];
+
+    res[2][0] = data[1][0]*data[2][1] - data[1][1]*data[2][0];
+    res[2][1] = data[0][1]*data[2][0] - data[0][0]*data[2][1];
+    res[2][2] = data[0][0]*data[1][1] - data[0][1]*data[1][0];
+
+    return 1/(this->det()) * res;
+}
+
+
+void mat3D::print() const {
    for (unsigned int i = 0; i < 3; i++) {
       for (unsigned int j = 0; j < 3; j++) {
          std::cout << data[i][j] << " ";
@@ -85,10 +108,48 @@ mat3D mat3D::generate_by_columns(const vec3D & col1, const vec3D & col2, const v
     return result.transpose();
 }
 
+mat3D mat3D::identity() {
+    mat3D result;
+    for (int m = 0; m < 3; m++) {
+        for (int n = 0; n < 3; n++) {
+            if (m == n) result[m][n] = 1;
+            else result[m][n] = 0;
+        }
+    }
+}
+
 mat3D operator*(const mat3D & mat1, const mat3D & mat2) {
     return mat3D::matmul(mat1, mat2);
 }
 
+mat3D operator*(double scale, const mat3D & mat) {
+    mat3D result = mat;
+    result.data[0] = scale*mat.data[0];
+    result.data[1] = scale*mat.data[1];
+    result.data[2] = scale*mat.data[2];
+    return result;
+}
+
 vec3D operator*(const mat3D & mat, const vec3D & vec) {
     return mat3D::matmul(mat, vec);
+}
+
+mat3D operator+(const mat3D & mat1, const mat3D & mat2) {
+    mat3D result;
+    for (int m = 0; m < 3; m++) {
+        for (int n = 0; n < 3; n++) {
+            result[m][n] = mat1[m][n] + mat2[m][n];
+        }
+    }
+    return result;
+}
+
+mat3D operator-(const mat3D & mat1, const mat3D & mat2) {
+    mat3D result;
+    for (int m = 0; m < 3; m++) {
+        for (int n = 0; n < 3; n++) {
+            result[m][n] = mat1[m][n] - mat2[m][n];
+        }
+    }
+    return result;
 }

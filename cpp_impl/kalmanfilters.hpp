@@ -1,8 +1,8 @@
 #pragma once
 
 #include <array>
-#include "vec3D.h"
-#include "mat3D.h"
+#include "math3D.hpp"
+#include "math2D.hpp"
 #include <cmath>
 
 using vec2D = std::array<double, 2>;
@@ -36,3 +36,20 @@ struct kf_1dim_rot {
 void transform3D_vec_and_std(double yaw, double pitch, double roll, double std_yaw
                             , const vec3D & vec, double std
                             , vec3D & vec_targed, mat3D & cov_target);
+
+
+
+using mat6D = mat2D<mat3D>;
+using vec6D = vec2D<vec3D>;
+
+struct kf_3dim_tl {
+    vec6D X, X_pred;
+    mat6D P, P_pred;
+
+    kf_3dim_tl() = delete;
+    kf_3dim_tl(const vec6D & X_init, const mat6D & P_init): X(X_init), P(P_init) {}
+
+    void time_update(double dt, const vec3D & acc, const mat3D & cov_acc);
+    void measurement_update(const vec3D & pos, const mat3D & pos_cov);
+    void skip_measurement_update();
+};

@@ -1,8 +1,5 @@
-#include "vec3D.h"
-#include <cmath>
-#include <stdexcept>
+#include "math3D.hpp"
 
-#include <iostream>
 
 vec3D::vec3D(double x_, double y_, double z_) {
    x = x_; y = y_; z = z_;
@@ -105,4 +102,12 @@ vec3D vec3D::scale(double a, const vec3D & v1) {
 
 vec3D operator*(double a, const vec3D & vec) {
     return vec3D(vec.x*a, vec.y*a, vec.z*a);
+}
+
+vec3D operator+(const vec3D & v1, const vec3D & v2) {
+    return vec3D(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+}
+
+vec3D operator-(const vec3D & v1, const vec3D & v2) {
+    return vec3D(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
 }
