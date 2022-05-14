@@ -5,13 +5,13 @@
 #include "math2D.hpp"
 #include <cmath>
 
-using vec2D = std::array<double, 2>;
-using mat2x2 = std::array<double, 4>;
+using arr2 = std::array<double, 2>;
+using arr2x2 = std::array<double, 4>;
 
 struct kf_1dim_tl {
-    vec2D X, X_pred;
-    mat2x2 P, P_pred;
-    vec2D K;
+    arr2 X, X_pred;
+    arr2x2 P, P_pred;
+    arr2 K;
 
     kf_1dim_tl() = delete;
     kf_1dim_tl(double x_init, double v_init, double sigma_x, double sigma_v);
