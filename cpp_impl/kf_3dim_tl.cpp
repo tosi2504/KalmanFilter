@@ -23,7 +23,7 @@ void kf_3dim_tl::measurement_update(const vec3D & pos, const mat3D & pos_cov) {
     P.b = (I - Kx) * (P_pred.b - P_pred.a * Ky) + Kx*pos_cov*Ky;
     P.c = (P_pred.c - P_pred.a * Ky) * (I - Kx) + Ky*pos_cov*Kx;
     P.d = Ky*(P_pred.a*Ky - P_pred.a) + P_pred.d - P_pred.c*Ky  + Ky*pos_cov*Ky;
-}
+ }
 
 void kf_3dim_tl::skip_measurement_update() {
     X = X_pred;
